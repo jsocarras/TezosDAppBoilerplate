@@ -32,7 +32,7 @@ const ConnectButton = ({
   setPublicToken,
   wallet
 }: ButtonProps): JSX.Element => {
-  const setup = async (userAddress: string): Promise<void> => {
+  const setup = useCallback(async (userAddress: string): Promise<void> => {
     setUserAddress(userAddress);
     // updates balance
     const balance = await Tezos.tz.getBalance(userAddress);
@@ -42,24 +42,7 @@ const ConnectButton = ({
     const storage: any = await contract.storage();
     setContract(contract);
     setStorage(storage.toNumber());
-  };
-
-  const connectWallet = async (): Promise<void> => {
-    try {
-      await wallet.requestPermissions({
-        network: {
-          type: NetworkType.GHOSTNET,
-          rpcUrl: "https://ghostnet.ecadinfra.com"
-        }
-      });
-      // gets user's address
-      const userAddress = await wallet.getPKH();
-      await setup(userAddress);
-      setBeaconConnection(true);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  }, [Tezos, contractAddress, setUserAddress, setUserBalance, setContract, setStorage]);
 
   useEffect(() => {
     (async () => {
@@ -88,7 +71,7 @@ const ConnectButton = ({
         setBeaconConnection(true);
       }
     })();
-  }, []);
+  }, [Tezos, setWallet, setBeaconConnection, setPublicToken, setup]);
 
   return (
     <div className="buttons">
