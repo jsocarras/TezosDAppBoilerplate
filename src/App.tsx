@@ -8,7 +8,7 @@ import qrcode from "qrcode-generator";
 import UpdateContract from "./components/UpdateContract";
 import Transfers from "./components/Transfers";
 
-enum BeaconConnection {
+enum beaconConnection {
   NONE = "",
   LISTENING = "Listening to P2P channel",
   CONNECTED = "Channel connected",
