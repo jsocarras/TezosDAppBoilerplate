@@ -1,6 +1,5 @@
 import React from "react";
 import { TezosToolkit } from "@taquito/taquito";
-import { BeaconWallet } from "@taquito/beacon-wallet";
 
 type GenerateRandomProps = {
   contract: any;
