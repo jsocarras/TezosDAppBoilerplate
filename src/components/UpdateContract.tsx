@@ -18,8 +18,11 @@ const UpdateContract = ({ contract, setUserBalance, Tezos, userAddress, setStora
     try {
       const op = await contract.methods.increment(1).send();
       await op.confirmation();
-      const newStorage: any = await contract.storage();
-      if (newStorage) setStorage(newStorage.toNumber());
+      let newStorage: any = await contract.storage();
+      while (newStorage.toNumber() !== storage + 1) {
+        newStorage = await contract.storage();
+      }
+      setStorage(newStorage.toNumber());
       setUserBalance(await Tezos.tz.getBalance(userAddress));
     } catch (error) {
       console.log(error);
@@ -33,8 +36,11 @@ const UpdateContract = ({ contract, setUserBalance, Tezos, userAddress, setStora
     try {
       const op = await contract.methods.decrement(1).send();
       await op.confirmation();
-      const newStorage: any = await contract.storage();
-      if (newStorage) setStorage(newStorage.toNumber());
+      let newStorage: any = await contract.storage();
+      while (newStorage.toNumber() !== storage - 1) {
+        newStorage = await contract.storage();
+      }
+      setStorage(newStorage.toNumber());
       setUserBalance(await Tezos.tz.getBalance(userAddress));
     } catch (error) {
       console.log(error);
@@ -42,6 +48,7 @@ const UpdateContract = ({ contract, setUserBalance, Tezos, userAddress, setStora
       setLoadingDecrement(false);
     }
   };
+
 
   if (!contract && !userAddress) return <div>&nbsp;</div>;
   return (
