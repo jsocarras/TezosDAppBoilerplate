@@ -8,13 +8,13 @@ import qrcode from "qrcode-generator";
 import UpdateContract from "./components/UpdateContract";
 import Transfers from "./components/Transfers";
 
-enum beaconConnection {
-  NONE = "",
-  LISTENING = "Listening to P2P channel",
-  CONNECTED = "Channel connected",
-  PERMISSION_REQUEST_SENT = "Permission request sent, waiting for response",
-  PERMISSION_REQUEST_SUCCESS = "Wallet is connected"
-}
+// enum beaconConnection {
+//   NONE = "",
+//   LISTENING = "Listening to P2P channel",
+//   CONNECTED = "Channel connected",
+//   PERMISSION_REQUEST_SENT = "Permission request sent, waiting for response",
+//   PERMISSION_REQUEST_SUCCESS = "Wallet is connected"
+// }
 
 const App = () => {
   const [Tezos, setTezos] = useState<TezosToolkit>(
