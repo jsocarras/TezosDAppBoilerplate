@@ -44,6 +44,23 @@ const ConnectButton = ({
     setStorage(storage.toNumber());
   }, [Tezos, contractAddress, setUserAddress, setUserBalance, setContract, setStorage]);
 
+  const connectWallet = async (): Promise<void> => {
+    try {
+      await wallet.requestPermissions({
+        network: {
+          type: NetworkType.GHOSTNET,
+          rpcUrl: "https://ghostnet.ecadinfra.com"
+        }
+      });
+      // gets user's address
+      const userAddress = await wallet.getPKH();
+      await setup(userAddress);
+      setBeaconConnection(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     (async () => {
       // creates a wallet instance
