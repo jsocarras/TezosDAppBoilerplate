@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { TezosToolkit } from "@taquito/taquito";
+import React, { Dispatch, SetStateAction, useEffect, useCallback } from "react";
 import { BeaconWallet } from "@taquito/beacon-wallet";
 import {
   NetworkType,
