@@ -3,6 +3,7 @@ import { TezosToolkit } from "@taquito/taquito";
 import "./App.css";
 import ConnectButton from "./components/ConnectWallet";
 import DisconnectButton from "./components/DisconnectWallet";
+import GenerateRandom from "./components/GenerateRandom";
 import qrcode from "qrcode-generator";
 import UpdateContract from "./components/UpdateContract";
 import Transfers from "./components/Transfers";
@@ -30,7 +31,8 @@ const App = () => {
   const [activeTab, setActiveTab] = useState<string>("transfer");
 
   // Ghostnet Increment/Decrement contract
-  const contractAddress: string = "KT1QMGSLynvwwSfGbaiJ8gzWHibTCweCGcu8";
+  // const contractAddress: string = "KT1QMGSLynvwwSfGbaiJ8gzWHibTCweCGcu8";
+  const contractAddress: string = "KT1MBzLe5kDHJmouutup4bYTqyxM6Cgx3mTt";
 
   const generateQrCode = (): { __html: string } => {
     const qr = qrcode(0, "L");
@@ -85,7 +87,7 @@ const App = () => {
           </div>
         </div>
         <div id="footer">
-          <img src="built-with-taquito.png" alt="Built with Taquito" />
+          <img src="built-with-creospan.png" alt="Built with Creospan" />
         </div>
       </div>
     );
@@ -108,6 +110,13 @@ const App = () => {
           >
             Interact with a contract
           </div>
+          <div
+            id="random"
+            className={activeTab === "random" ? "active" : ""}
+            onClick={() => setActiveTab("random")}
+          >
+            Generate a random value
+          </div>
         </div>
         <div id="dialog">
           <div id="content">
@@ -120,7 +129,7 @@ const App = () => {
                   userAddress={userAddress}
                 />
               </div>
-            ) : (
+            ) : activeTab === "contract" ? (
               <div id="increment-decrement">
                 <h3 className="text-align-center">
                   Current counter: <span>{storage}</span>
@@ -131,6 +140,16 @@ const App = () => {
                   Tezos={Tezos}
                   userAddress={userAddress}
                   setStorage={setStorage}
+                />
+              </div>
+            ) : (
+              <div id="generate-random">
+                <h3 className="text-align-center">Generate a random value</h3>
+                <GenerateRandom
+                  contract={contract}
+                  setUserBalance={setUserBalance}
+                  Tezos={Tezos}
+                  userAddress={userAddress}
                 />
               </div>
             )}
@@ -163,7 +182,7 @@ const App = () => {
           />
         </div>
         <div id="footer">
-          <img src="built-with-taquito.png" alt="Built with Taquito" />
+          <img src="built-with-creospan.png" alt="Built with Creospan" />
         </div>
       </div>
     );
@@ -213,7 +232,7 @@ const App = () => {
           />
         </div>
         <div id="footer">
-          <img src="built-with-taquito.png" alt="Built with Taquito" />
+          <img src="built-with-creospan.png" alt="Built with Creospan" />
         </div>
       </div>
     );
